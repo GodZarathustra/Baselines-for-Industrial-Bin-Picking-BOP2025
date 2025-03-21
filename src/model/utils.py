@@ -173,8 +173,8 @@ class Detections:
             "scene_id": scene_id,
             "image_id": frame_id,
             "category_id": self.object_ids + 1
-            if dataset_name != "xyzibd"
-            else xyzibd_object_ids[self.object_ids],
+            if dataset_name != "ipd"
+            else ipd_object_ids[self.object_ids],
             "score": self.scores,
             "bbox": boxes,
             "time": runtime,
