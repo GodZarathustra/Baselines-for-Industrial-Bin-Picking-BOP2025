@@ -1,0 +1,24 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: inference_ipd.py",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/inference_ipd.py",
+            "args": [
+                "--dataset_dir", "DATASET/ipd",
+                "--dataset_name", "ipd",
+                "--use_reconstructed_mesh", "0",
+                "--mask_dir", "DATASET/ipd/ipd_mask_sam6d.json",
+                "--debug", "1",
+                "--debug_dir", "${workspaceFolder}/debug",
+                "--test_targets_path", "DATASET/ipd/test_targets_multiview_bop25.json"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {},
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+DATASET/
+weights/
+debug/
+demo_data/
+mycpp/build/
+assets/
+bundlesdf/mycuda/build/
+bundlesdf/mycuda/common.egg-info/
+bundlesdf/mycuda/gridencoder.cpython-39-x86_64-linux-gnu.so
+bundlesdf/mycuda/common.cpython-39-x86_64-linux-gnu.so
+run_linemod.py
+run_ycb_video.py
+__pycache__/
