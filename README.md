@@ -1,4 +1,4 @@
-# Benchmark for [OpenCV Perception Challenge for Bin-picking](https://bpc.opencv.org/) and [BOP-Industrial Challenge 2025](https://bop.felk.cvut.cz/challenges/)
+# Baselines for [OpenCV Perception Challenge for Bin-picking](https://bpc.opencv.org/) and [BOP-Industrial Challenge 2025](https://bop.felk.cvut.cz/challenges/)
 
 Please check each **Branch** for the corresponding task and baseline method for the specific dataset(**IPD** and **XYZ-IBD**).
 
