@@ -6,8 +6,8 @@ Please check each **Branch** for the corresponding task and baseline method for 
 ## Pose Estimation for Unseen Objects
 | Method |Branch|
 |--------|------|
-| [FoundationPose](https://github.com/NVlabs/FoundationPose)  | Pose_FoundationPose     |
-| [SAM6D](https://github.com/Kudo510/Sam6D)                   | Pose_SAM6D              |
+| [FoundationPose](https://github.com/NVlabs/FoundationPose)  | [Pose_FoundationPose](https://github.com/GodZarathustra/Baselines-for-Industrial-Bin-Picking-BOP2025/tree/Pose_FoundationPose)    |
+| [SAM6D](https://github.com/Kudo510/Sam6D)                   | [Pose_SAM6D](https://github.com/GodZarathustra/Baselines-for-Industrial-Bin-Picking-BOP2025/tree/Pose_SAM6D)             |
 
 ## Detection/Segmentation for Unseen Objects
 | Dataset  | Method |Branch|
