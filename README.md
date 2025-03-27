@@ -11,16 +11,30 @@ FoundationPose
 |---DATASET/
 |   |---ipd/
 |       |---models/
-|       |---test/
 |       |---camera.json
 |       |---ipd_mask_sam6d.json
 |       |---test_targets_multiview_bop25.json
+|       |---test/
+|           |--000000/
+|                |--gray
+|                |--depth
+|                |--scene_camera.json
+|           |--000001/
+|           |--...
+|           |--0000014/
 |   |---xyz/
 |       |---models/
-|       |---test/
 |       |---camera.json
 |       |---xyz_mask_sam6d.json
 |       |---test_targets_multiview_bop25.json
+|       |---test/
+|           |--000001/
+|               |--gray
+|               |--depth
+|               |--scene_camera.json
+|           |--000002/
+|           |--...
+|           |--0000074/
 ```
 
 #### Run the pose estimation model

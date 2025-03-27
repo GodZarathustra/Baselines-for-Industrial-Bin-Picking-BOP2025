@@ -2,9 +2,9 @@ import os
 import os.path as osp
 import shutil
 
-ipd_test_base = '/media/jiaqi/Extreme SSD/ipd/test' 
+ipd_test_base = 'DATASET/ipd/test' 
 scene_folders = sorted(os.listdir(ipd_test_base))
-output_base = '/media/jiaqi/Extreme SSD/ipd_test'
+output_base = 'DATASET/ipd/test'
 os.makedirs(output_base, exist_ok=True)
 
 target_item = ["depth_photoneo", "rgb_photoneo", "scene_camera_photoneo.json"]
