@@ -12,9 +12,8 @@ Please check each **Branch** for the corresponding task and baseline method for 
 
 
 ## Pose Estimation for Unseen Objects
-| Dataset  | Method |Branch|
-|----------|--------|------|
-| IPD      | [FoundationPose](https://github.com/NVlabs/FoundationPose)  | Pose_FoundationPose_IPD     |
-| IPD      | [SAM6D](https://github.com/Kudo510/Sam6D)           | Pose_SAM6D_IPD              |
-| XYZ-IBD  | [FoundationPose](https://github.com/NVlabs/FoundationPose)  | Pose_FoundationPose_XYZ-IBD |
-| XYZ-IBD  | [SAM6D](https://github.com/Kudo510/Sam6D)           | Pose_SAM6D_XYZ-IBD          |
+| Method |Branch|
+|--------|------|
+| [FoundationPose](https://github.com/NVlabs/FoundationPose)  | Pose_FoundationPose     |
+| [SAM6D](https://github.com/Kudo510/Sam6D)                   | Pose_SAM6D              |
+
