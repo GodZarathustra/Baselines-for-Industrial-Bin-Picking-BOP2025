@@ -11,3 +11,4 @@ bundlesdf/mycuda/common.cpython-39-x86_64-linux-gnu.so
 run_linemod.py
 run_ycb_video.py
 __pycache__/
+inference_xyz.py

@@ -53,7 +53,7 @@ def get_masks(reader, scene_id, idx, ob_id, masks):
   masks = np.array(masks)
   return masks, mask_files
 
-def run_pose_estimation_worker(reader, indices, est:FoundationPose=None, debug=0, scene_id=None, im_id=None, ob_id=None, device='cuda:0', masks=None):
+def run_pose_estimation_worker(dataset_name, reader, indices, est:FoundationPose=None, debug=0, scene_id=None, im_id=None, ob_id=None, device='cuda:0', masks=None):
   torch.cuda.set_device(device)
   est.to_device(device)
   est.glctx = dr.RasterizeCudaContext(device=device)
@@ -72,7 +72,12 @@ def run_pose_estimation_worker(reader, indices, est:FoundationPose=None, debug=0
       return None
 
     for inst_idx, (ob_mask, ob_mask_file) in enumerate(zip(ob_masks, ob_mask_files)):
-      pose = est.register_ipd(K=reader.K, rgb=color, depth=depth, ob_mask=ob_mask, ob_mask_file=ob_mask_file, ob_id=ob_id)
+      if dataset_name == "ipd":
+        pose = est.register_ipd(K=reader.K, rgb=color, depth=depth, ob_mask=ob_mask, ob_mask_file=ob_mask_file, ob_id=ob_id)
+      elif dataset_name == "xyz":
+        pose = est.register_xyz(K=reader.K, rgb=color, depth=depth, ob_mask=ob_mask, ob_mask_file=ob_mask_file, ob_id=ob_id)
+      else:
+        raise ValueError(f"Unknown dataset_name: {dataset_name}")
       # logging.info(f"pose:\n{pose}")
       result[ob_id][id_str][inst_idx] = pose
 
@@ -80,7 +85,6 @@ def run_pose_estimation_worker(reader, indices, est:FoundationPose=None, debug=0
 
 
 def run_pose_estimation():
-  scene_ids = list(range(15))
   wp.force_load(device='cuda')
   if opt.dataset_name == "ipd":
     reader_tmp = IPDReader(f'{opt.dataset_dir}/test/000001', split=None)
@@ -108,8 +112,10 @@ def run_pose_estimation():
     scene_id = target["scene_id"]
     im_id = target["im_id"][0][1]
     logging.info(f"scene_id:{scene_id}, frame:{im_id}")
-    if scene_id not in scene_ids:
-      continue
+
+    if res.get(scene_id) is None:
+      res[scene_id] = []
+
     det_masks = [item for item in sam6d_masks if item['scene_id'] == scene_id and item['image_id'] == im_id and item['score'] > 0.4]
     if len(det_masks) == 0:             
       continue
@@ -125,12 +131,17 @@ def run_pose_estimation():
       args = []
 
       video_dir = f'{opt.dataset_dir}/test/{scene_id:06d}'
-      reader = IPDReader(video_dir, split=None)
+
+      if opt.dataset_name == "ipd":
+        reader = IPDReader(video_dir, split=None)
+      elif opt.dataset_name == "xyz":
+        reader = XYZReader(video_dir, split=None)
+
       est.reset_object(model_pts=mesh.vertices.copy(), model_normals=mesh.vertex_normals.copy(), symmetry_tfs=symmetry_tfs, mesh=mesh)
 
       for i in range(len(reader.color_files)):
         if int(os.path.splitext(os.path.basename(reader.color_files[i]))[0]) == im_id:
-          args.append((reader, [i], est, debug, scene_id, im_id, ob_id, "cuda:0", det_masks))
+          args.append((opt.dataset_name, reader, [i], est, debug, scene_id, im_id, ob_id, "cuda:0", det_masks))
 
       outs = []
       for arg in args:
@@ -161,10 +172,10 @@ def run_pose_estimation():
 if __name__=='__main__':
   parser = argparse.ArgumentParser()
   code_dir = os.path.dirname(os.path.realpath(__file__))
-  parser.add_argument('--dataset_dir', type=str, default="DATASET/ipd", help="IPD root dir")
+  parser.add_argument('--dataset_dir', type=str, help="DATASET root dir")
   parser.add_argument('--dataset_name', type=str)
   parser.add_argument('--use_reconstructed_mesh', type=int, default=0)
-  parser.add_argument('--mask_dir', type=str, default="DATASET/ipd/ipd_mask_sam6d.json", help="mask root dir")
+  parser.add_argument('--mask_dir', type=str, help="mask root dir")
   parser.add_argument('--debug', type=int, default=1)
   parser.add_argument('--debug_dir', type=str, default=f'{code_dir}/debug')
   parser.add_argument('--test_targets_path', type=str)

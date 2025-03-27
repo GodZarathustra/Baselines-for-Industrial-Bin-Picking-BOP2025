@@ -244,7 +244,7 @@ class FoundationPose:
     @pts: (N,3) np array, downsampled scene points
     '''
     set_seed(0)
-    logging.info('Welcome')
+    # logging.info('Welcome')
 
     if self.glctx is None:
       if glctx is None:
@@ -259,7 +259,7 @@ class FoundationPose:
     normal_map = None
     valid = (depth>=0.001) & (ob_mask>0)
     if valid.sum()<4:
-      logging.info(f'valid too small, return')
+      # logging.info(f'valid too small, return')
       pose = np.eye(4)
       pose[:3,3] = self.guess_translation(depth=depth, mask=ob_mask, K=K)
       return pose
@@ -271,14 +271,14 @@ class FoundationPose:
 
     poses = self.generate_random_pose_hypo(K=K, rgb=rgb, depth=depth, mask=ob_mask, scene_pts=None)
     poses = poses.data.cpu().numpy()
-    logging.info(f'poses:{poses.shape}')
+    # logging.info(f'poses:{poses.shape}')
     center = self.guess_translation(depth=depth, mask=ob_mask, K=K)
 
     poses = torch.as_tensor(poses, device='cuda', dtype=torch.float)
     poses[:,:3,3] = torch.as_tensor(center.reshape(1,3), device='cuda')
 
     add_errs = self.compute_add_err_to_gt_pose(poses)
-    logging.info(f"after viewpoint, add_errs min:{add_errs.min()}")
+    # logging.info(f"after viewpoint, add_errs min:{add_errs.min()}")
 
     xyz_map = depth2xyzmap(depth, K)
     poses, vis = self.refiner.predict(mesh=self.mesh, mesh_tensors=self.mesh_tensors, rgb=rgb, depth=depth, K=K, ob_in_cams=poses.data.cpu().numpy(), normal_map=normal_map, xyz_map=xyz_map, glctx=self.glctx, mesh_diameter=self.diameter, iteration=iteration, get_vis=False)
@@ -296,14 +296,14 @@ class FoundationPose:
       imageio.imwrite(f'{save_dir}/{mask_id}.png', vis)
 
     add_errs = self.compute_add_err_to_gt_pose(poses)
-    logging.info(f"final, add_errs min:{add_errs.min()}")
+    # logging.info(f"final, add_errs min:{add_errs.min()}")
 
     ids = torch.as_tensor(scores).argsort(descending=True)
-    logging.info(f'sort ids:{ids}')
+    # logging.info(f'sort ids:{ids}')
     scores = scores[ids]
     poses = poses[ids]
 
-    logging.info(f'sorted scores:{scores}')
+    # logging.info(f'sorted scores:{scores}')
 
     best_pose = poses[0]@self.get_tf_to_centered_mesh()
     self.pose_last = poses[0]
