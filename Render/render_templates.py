@@ -3,7 +3,7 @@ import subprocess
 import os
 
 # List of object IDs to process
-object_ids = [0] #[0,1,4,8,10,11,14,18,19,20] 
+object_ids = [0,1,4,8,10,11,14,18,19,20] 
 
 # Blender path
 blender_path = "/home/tum/blender-3.1.1-linux-x64"
