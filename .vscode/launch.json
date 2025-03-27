@@ -2,16 +2,34 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Pose_Estimation",
+            "name": "IPD Pose_Estimation",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/Pose_Estimation_Model/run_inference_detections.py",
             "args": [
+                "--dataset_name", "IPD",
                 "--output_dir", "${workspaceFolder}/Data/IPD/sam6d_outputs",
                 "--input_dir", "${workspaceFolder}/Data/IPD/test",
                 "--template_dir", "${workspaceFolder}/Data/IPD/templates",
                 "--cad_dir", "${workspaceFolder}//Data/IPD/models",
                 "--detection_path", "${workspaceFolder}/Data/IPD/ipd_mask_sam6d.json",
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}/Pose_Estimation_Model"
+        },
+        {
+            "name": "XYZ Pose_Estimation",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/Pose_Estimation_Model/run_inference_detections.py",
+            "args": [
+                "--dataset_name", "XYZ",
+                "--output_dir", "${workspaceFolder}/Data/XYZ/sam6d_outputs",
+                "--input_dir", "${workspaceFolder}/Data/XYZ/test",
+                "--template_dir", "${workspaceFolder}/Data/XYZ/templates",
+                "--cad_dir", "${workspaceFolder}//Data/XYZ/models",
+                "--detection_path", "${workspaceFolder}/Data/XYZ/xyz_mask_sam6d.json",
             ],
             "console": "integratedTerminal",
             "justMyCode": true,

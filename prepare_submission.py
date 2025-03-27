@@ -47,11 +47,9 @@ for scene_lid in scene_lids:
             img_id = estimated_pose_data["im_id"]
             obj_id = estimated_pose_data["obj_id"]
             score = estimated_pose_data["score"]
-
             R = estimated_pose_data["R"]
             t = estimated_pose_data["t"]
-
-            run_time = total_run_time[(scene_id, img_id)]
+            run_time = estimated_pose_data["time"]
 
             lines.append(
                 "{scene_id},{im_id},{obj_id},{score},{R},{t},{time}".format(
@@ -65,6 +63,6 @@ for scene_lid in scene_lids:
                 )
             )
 
-bop_path = os.path.join(output_dir, f"coarse_{object_dataset}-estimated-poses.csv")
+bop_path = os.path.join(output_dir, f"{object_dataset}-estimated-poses.csv")
 with open(bop_path, "wb") as f:
     f.write("\n".join(lines).encode("utf-8"))

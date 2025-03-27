@@ -55,6 +55,7 @@ def get_parser():
                         help="")
     
     # input
+    parser.add_argument("--dataset_name", nargs="?", help="Dataset name")
     parser.add_argument("--output_dir", nargs="?", help="Path to root directory of the output")
     parser.add_argument("--input_dir", nargs="?", help="Path to root directory of the input")
     parser.add_argument("--template_dir", nargs="?", help="Path to templates")
@@ -78,6 +79,7 @@ def init():
     cfg.log_dir  = log_dir
     cfg.test_iter = args.iter
 
+    cfg.dataset_name = args.dataset_name
     cfg.output_dir = args.output_dir
     cfg.input_dir = args.input_dir
     cfg.template_dir = args.template_dir
@@ -281,8 +283,6 @@ if __name__ == "__main__":
     random.seed(cfg.rd_seed)
     torch.manual_seed(cfg.rd_seed)
 
-    dataset_name = "IPD"
-    
     # model
     print("=> creating model ...")
     MODEL = importlib.import_module(cfg.model_name)
@@ -293,7 +293,7 @@ if __name__ == "__main__":
     gorilla.solver.load_checkpoint(model=model, filename=checkpoint)
 
     # load test targets
-    test_targets_path = f"Data/{dataset_name}/test_targets_multiview_bop25.json"
+    test_targets_path = f"../Data/{cfg.dataset_name}/test_targets_multiview_bop25.json"
     with open (test_targets_path, "r") as f:    
         test_targets = json.load(f)
 
