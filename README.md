@@ -8,7 +8,7 @@ Please check each **Branch** for the corresponding task and baseline method for 
 | IPD      | CNOS  | Seg_CNOS_IPD |
 | IPD      | SAM6D  | Seg_SAM6D_IPD |
 | XYZ-IBD  | CNOS  | Seg_CNOS_XYZ-IBD |
-| IPD      | SAM6D  | Seg_SAM6D_XYZ-IBD |
+| XYZ-IBD  | SAM6D  | Seg_SAM6D_XYZ-IBD |
 
 
 ## Pose Estimation for Unseen Objects
